@@ -1,0 +1,5 @@
+name="Soundtouch"
+version="@VERSION@"
+description="OCaml bindings to libsoundtouch"
+archive(byte) = "soundtouch.cma"
+archive(native) = "soundtouch.cmxa"
