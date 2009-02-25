@@ -34,6 +34,7 @@ CC = @CC@
 CFLAGS = @CFLAGS@ @soundtouch_CFLAGS@ -fPIC -Wall -DCAML_NAME_SPACE
 CPPFLAGS = @CPPFLAGS@ @soundtouch_CFLAGS@ -fPIC -Wall -DCAML_NAME_SPACE
 INCDIRS = @INC@
+NO_CUSTOM = yes
 
 all: $(BEST)
 
