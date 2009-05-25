@@ -1,6 +1,12 @@
 0.1.5 ()
 =====
 * Added a check for g++ in configure script.
+* Makefile now honnors LIBDIRS
+  variable for linking against libraries
+  located in other places than then standard
+  ones.
+* Added NO_CUSTOM to build
+  in standard mode.
 
 0.1.4 (06-05-2008)
 =====
