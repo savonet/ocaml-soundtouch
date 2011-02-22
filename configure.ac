@@ -123,12 +123,30 @@ if ! $PKG_CONFIG --exists $SOUNDTOUCH_PKG; then
     SOUNDTOUCH_PKG="libSoundTouch"
   fi
 fi
-soundtouch_CFLAGS=`$PKG_CONFIG --cflags $SOUNDTOUCH_PKG`
-AC_SUBST([soundtouch_CFLAGS])
-soundtouch_LIBS=`$PKG_CONFIG --libs-only-l $SOUNDTOUCH_PKG`
-AC_SUBST([soundtouch_LIBS])
-soundtouch_LDFLAGS=`$PKG_CONFIG --libs-only-L $SOUNDTOUCH_PKG`
-AC_SUBST([soundtouch_LDFLAGS])
+CFLAGS="$CFLAGS `$PKG_CONFIG --cflags $SOUNDTOUCH_PKG`"
+CPPFLAGS="$CPPFLAGS `$PKG_CONFIG --cflags $SOUNDTOUCH_PKG`"
+LIBS="$LIBS `$PKG_CONFIG --libs-only-l $SOUNDTOUCH_PKG`"
+LDFLAGS="$LDFLAGS `$PKG_CONFIG --libs-only-L $SOUNDTOUCH_PKG`"
+
+# Check if we need to add -lBPM..
+AC_MSG_CHECKING([if -lBPM is needed])
+AC_LANG_PUSH(C++)
+AC_LINK_IFELSE(
+  [AC_LANG_PROGRAM([#include <soundtouch/BPMDetect.h>],
+    [BPMDetect *bpm = new BPMDetect(2, 44100);])],
+  [BPMTEST=1],
+  [BPMTEST=0])
+# If false, run again with -lBPM
+if test "x$BPMTEST" != "x1"; then
+  LIBS="$LIBS -lBPM"
+  AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM([#include <soundtouch/BPMDetect.h>],
+      [BPMDetect *bpm = new BPMDetect(2, 44100);])],
+    [AC_MSG_RESULT([yes])],
+    [AC_MSG_ERROR([Cannot find BPMDetect..])])
+else
+  AC_MSG_RESULT([no])
+fi
 
 if test "$OCAMLOPT" = no ; then
     BEST=byte
@@ -153,6 +171,10 @@ AC_SUBST(OCAMLCP)
 AC_SUBST(CAMLLIBPATH)
 AC_SUBST(BEST)
 AC_SUBST(INC)
+AC_SUBST(LIBS)
+AC_SUBST(LDFLAGS)
+AC_SUBST(CFLAGS)
+AC_SUBST(CPPFLAGS)
 
 # Finally create the Makefile and samples
 AC_CONFIG_FILES([Makefile],[chmod a-w Makefile])
