@@ -23,7 +23,7 @@ DVIPS = @DVIPS@
 PS2PDF = @PS2PDF@
 OCAMLLIBPATH = @CAMLLIBPATH@
 
-SOURCES = soundtouch.ml soundtouch_stubs.cc
+SOURCES = soundtouch.mli soundtouch.ml soundtouch_stubs.cc
 RESULT = soundtouch
 OCAMLDOCFLAGS = -stars
 LIBINSTALL_FILES = $(wildcard *.mli *.cmi *.cma *.cmxa *.cmx *.a *.so)
