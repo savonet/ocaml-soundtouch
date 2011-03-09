@@ -1,5 +1,4 @@
-
-# check for one particular file of the sources 
+# check for one particular file of the sources
 AC_INIT(ocaml-soundtouch, 0.1.5, savonet-users@lists.sourceforge.net)
 
 VERSION=$PACKAGE_VERSION
@@ -125,7 +124,7 @@ if ! $PKG_CONFIG --exists $SOUNDTOUCH_PKG; then
 fi
 CFLAGS="$CFLAGS `$PKG_CONFIG --cflags $SOUNDTOUCH_PKG`"
 CPPFLAGS="$CPPFLAGS `$PKG_CONFIG --cflags $SOUNDTOUCH_PKG`"
-LIBS="$LIBS `$PKG_CONFIG --libs-only-l $SOUNDTOUCH_PKG`"
+LIBS="$LIBS `$PKG_CONFIG --libs-only-l $SOUNDTOUCH_PKG` -lstdc++"
 LDFLAGS="$LDFLAGS `$PKG_CONFIG --libs-only-L $SOUNDTOUCH_PKG`"
 
 # Check if we need to add -lBPM..
