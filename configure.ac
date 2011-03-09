@@ -115,7 +115,11 @@ PKG_PROG_PKG_CONFIG()
 SOUNDTOUCH_PKG="soundtouch-1.0"
 if ! $PKG_CONFIG --exists $SOUNDTOUCH_PKG; then
   if ! $PKG_CONFIG --exists libSoundTouch; then
-        AC_MSG_ERROR([soundtouch not found])
+    if ! $PKG_CONFIG --exists soundtouch; then
+      AC_MSG_ERROR([soundtouch not found])
+    else
+      SOUNDTOUCH_PKG="soundtouch"
+    fi
   else
     # This is debian specific, added for backward compatibility
     # but should be removed when not needed anymore..
@@ -132,7 +136,7 @@ AC_MSG_CHECKING([if -lBPM is needed])
 AC_LANG_PUSH(C++)
 AC_LINK_IFELSE(
   [AC_LANG_PROGRAM([#include <soundtouch/BPMDetect.h>],
-    [BPMDetect *bpm = new BPMDetect(2, 44100);])],
+    ["BPMDetect *bpm = new BPMDetect(2, 44100);"])],
   [BPMTEST=1],
   [BPMTEST=0])
 # If false, run again with -lBPM
@@ -140,7 +144,7 @@ if test "x$BPMTEST" != "x1"; then
   LIBS="$LIBS -lBPM"
   AC_LINK_IFELSE(
     [AC_LANG_PROGRAM([#include <soundtouch/BPMDetect.h>],
-      [BPMDetect *bpm = new BPMDetect(2, 44100);])],
+      ["BPMDetect *bpm = new BPMDetect(2, 44100);"])],
     [AC_MSG_RESULT([yes])],
     [AC_MSG_ERROR([Cannot find BPMDetect..])])
 else
