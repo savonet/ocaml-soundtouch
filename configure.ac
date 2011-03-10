@@ -112,7 +112,8 @@ AC_PROG_CXX()
 PKG_PROG_PKG_CONFIG()
 #PKG_CHECK_MODULES(SOUNDTOUCH,libSoundTouch,,[AC_MSG_ERROR(libsoundtouch not found.)])
 # PKG_CHECK_MODULES loses when you need --libs-only-[lL]
-SOUNDTOUCH_PKG="soundtouch-1.0"
+SOUNDTOUCH_PKG="soundtouch"
+AC_MSG_CHECKING([soundtouch library and headers])
 if ! $PKG_CONFIG --exists $SOUNDTOUCH_PKG; then
   if ! $PKG_CONFIG --exists libSoundTouch; then
     if ! $PKG_CONFIG --exists soundtouch; then
@@ -126,6 +127,7 @@ if ! $PKG_CONFIG --exists $SOUNDTOUCH_PKG; then
     SOUNDTOUCH_PKG="libSoundTouch"
   fi
 fi
+AC_MSG_RESULT([ok])
 CFLAGS="$CFLAGS `$PKG_CONFIG --cflags $SOUNDTOUCH_PKG`"
 CPPFLAGS="$CPPFLAGS `$PKG_CONFIG --cflags $SOUNDTOUCH_PKG`"
 LIBS="$LIBS `$PKG_CONFIG --libs-only-l $SOUNDTOUCH_PKG` -lstdc++"
