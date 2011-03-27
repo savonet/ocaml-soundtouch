@@ -116,10 +116,10 @@ SOUNDTOUCH_PKG="soundtouch"
 AC_MSG_CHECKING([soundtouch library and headers])
 if ! $PKG_CONFIG --exists $SOUNDTOUCH_PKG; then
   if ! $PKG_CONFIG --exists libSoundTouch; then
-    if ! $PKG_CONFIG --exists soundtouch; then
+    if ! $PKG_CONFIG --exists soundtouch-1.0; then
       AC_MSG_ERROR([soundtouch not found])
     else
-      SOUNDTOUCH_PKG="soundtouch"
+      SOUNDTOUCH_PKG="soundtouch-1.0"
     fi
   else
     # This is debian specific, added for backward compatibility
