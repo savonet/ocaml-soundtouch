@@ -17,6 +17,7 @@ AC_CHECK_OCAML_COMPILERS()
 AC_PROG_CC()
 AC_PROG_CXX()
 AC_CHECK_TOOL([AR],[ar],no)
+AC_SUBST(AR)
 # Check for libsoundtouch
 PKG_PROG_PKG_CONFIG()
 #PKG_CHECK_MODULES(SOUNDTOUCH,libSoundTouch,,[AC_MSG_ERROR(libsoundtouch not found.)])
