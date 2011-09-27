@@ -1,23 +1,12 @@
 # check for one particular file of the sources
-AC_INIT(ocaml-soundtouch, 0.1.6, savonet-users@lists.sourceforge.net)
+AC_INIT([ocaml-soundtouch],[0.1.6],[savonet-users@lists.sourceforge.net])
 
 VERSION=$PACKAGE_VERSION
 AC_MSG_RESULT([configuring $PACKAGE_STRING])
 
-# Add prefix to compilation variables
-# if passed
-if test "x$prefix" != "xNONE"; then
-	CFLAGS="$CFLAGS -I$prefix/include"
-	LDFLAGS="$LDFLAGS -L$prefix/lib"
-	CPPFLAGS="$CPPFLAGS -I$prefix/include"
-fi
+AC_BASE_CHECKS()
 
-AC_CHECK_OCAML_COMPILERS()
-
-AC_PROG_CC()
 AC_PROG_CXX()
-AC_CHECK_TOOL([AR],[ar],no)
-AC_SUBST(AR)
 # Check for libsoundtouch
 PKG_PROG_PKG_CONFIG()
 #PKG_CHECK_MODULES(SOUNDTOUCH,libSoundTouch,,[AC_MSG_ERROR(libsoundtouch not found.)])
