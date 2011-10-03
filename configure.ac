@@ -1,5 +1,5 @@
 # check for one particular file of the sources
-AC_INIT([ocaml-soundtouch],[0.1.6],[savonet-users@lists.sourceforge.net])
+AC_INIT([ocaml-soundtouch],[0.1.7],[savonet-users@lists.sourceforge.net])
 
 VERSION=$PACKAGE_VERSION
 AC_MSG_RESULT([configuring $PACKAGE_STRING])
@@ -36,16 +36,16 @@ LDFLAGS="$LDFLAGS `$PKG_CONFIG --libs-only-L $SOUNDTOUCH_PKG`"
 AC_MSG_CHECKING([if -lBPM is needed])
 AC_LANG_PUSH(C++)
 AC_LINK_IFELSE(
-  [AC_LANG_PROGRAM([#include <soundtouch/BPMDetect.h>],
-    ["BPMDetect *bpm = new BPMDetect(2, 44100);"])],
+  [AC_LANG_PROGRAM([[#include <soundtouch/BPMDetect.h>]],
+    [[BPMDetect *bpm = new BPMDetect(2, 44100);]])],
   [BPMTEST=1],
   [BPMTEST=0])
 # If false, run again with -lBPM
 if test "x$BPMTEST" != "x1"; then
   LIBS="$LIBS -lBPM"
   AC_LINK_IFELSE(
-    [AC_LANG_PROGRAM([#include <soundtouch/BPMDetect.h>],
-      ["BPMDetect *bpm = new BPMDetect(2, 44100);"])],
+    [AC_LANG_PROGRAM([[#include <soundtouch/BPMDetect.h>]],
+      [[BPMDetect *bpm = new BPMDetect(2, 44100);]])],
     [AC_MSG_RESULT([yes])],
     [AC_MSG_ERROR([Cannot find BPMDetect..])])
 else
