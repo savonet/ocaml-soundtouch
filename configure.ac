@@ -36,7 +36,8 @@ LDFLAGS="$LDFLAGS `$PKG_CONFIG --libs-only-L $SOUNDTOUCH_PKG`"
 AC_MSG_CHECKING([if -lBPM is needed])
 AC_LANG_PUSH(C++)
 AC_LINK_IFELSE(
-  [AC_LANG_PROGRAM([[#include <soundtouch/BPMDetect.h>]],
+  [AC_LANG_PROGRAM([[#include <soundtouch/BPMDetect.h>
+                     using namespace soundtouch;]],
     [[BPMDetect *bpm = new BPMDetect(2, 44100);]])],
   [BPMTEST=1],
   [BPMTEST=0])
@@ -44,7 +45,8 @@ AC_LINK_IFELSE(
 if test "x$BPMTEST" != "x1"; then
   LIBS="$LIBS -lBPM"
   AC_LINK_IFELSE(
-    [AC_LANG_PROGRAM([[#include <soundtouch/BPMDetect.h>]],
+    [AC_LANG_PROGRAM([[#include <soundtouch/BPMDetect.h>
+                       using namespace soundtouch;]],
       [[BPMDetect *bpm = new BPMDetect(2, 44100);]])],
     [AC_MSG_RESULT([yes])],
     [AC_MSG_ERROR([Cannot find BPMDetect..])])
