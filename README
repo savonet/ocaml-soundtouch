@@ -1,7 +1,7 @@
 ocaml-soundtouch
 ==========
 
-This package contains an O'Caml interface for sound stretching library, 
+This package contains an OCaml interface for sound stretching library, 
 otherwise known as libsoundtouch.
 
 Please read the COPYING file before using this software.

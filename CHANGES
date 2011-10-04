@@ -1,6 +1,8 @@
-0.1.7 ()
+0.1.7 (04-10-2011)
 =====
-* Really detect if -lBPM is needed at link time..
+* Really detect if -lBPM is needed at link time.
+* Fix compilation on Win32.
+* Improved autoconf.
 
 0.1.6 (03-03-2011)
 =====
