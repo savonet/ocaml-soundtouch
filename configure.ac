@@ -1,5 +1,5 @@
 # check for one particular file of the sources
-AC_INIT([ocaml-soundtouch],[0.1.7],[savonet-users@lists.sourceforge.net])
+AC_INIT([ocaml-soundtouch],[0.1.8],[savonet-users@lists.sourceforge.net])
 
 VERSION=$PACKAGE_VERSION
 AC_MSG_RESULT([configuring $PACKAGE_STRING])
