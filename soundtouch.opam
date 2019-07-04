@@ -1,18 +1,22 @@
 opam-version: "2.0"
-version: "dev"
+name: "soundtouch"
+version: "0.1.8"
 maintainer: "Romain Beauxis <toots@rastageeks.org>"
 authors: "The Savonet Team <savonet-users@lists.sourceforge.net>"
 homepage: "https://github.com/savonet/ocaml-soundtouch"
 build: [
-  ["./bootstrap"]
+  ["./bootstrap"] {pinned}
   ["./configure" "--prefix" prefix]
+  [make "clean"] {pinned}
   [make]
 ]
 install: [
   [make "install"]
 ]
-remove: ["ocamlfind" "remove" "soundtouch"]
-depends: ["ocaml" "ocamlfind"]
+depends: [
+  "ocaml"
+  "ocamlfind" {build}
+]
 depexts: [
   ["soundtouch-dev"] {os-distribution = "alpine"}
   ["soundtouch-devel"] {os-distribution = "centos"}
@@ -27,9 +31,3 @@ bug-reports: "https://github.com/savonet/ocaml-soundtouch/issues"
 dev-repo: "git+https://github.com/savonet/ocaml-soundtouch.git"
 synopsis:
   "Bindings for the soundtouch library which provides functions for changing pitch and timestretching audio data"
-flags: light-uninstall
-url {
-  src:
-    "https://github.com/savonet/ocaml-soundtouch/releases/download/0.1.8/ocaml-soundtouch-0.1.8.tar.gz"
-  checksum: "md5=f88084c05ef822bea3ccbde9e01700a6"
-}
