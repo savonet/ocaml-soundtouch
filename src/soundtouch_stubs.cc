@@ -63,11 +63,14 @@ extern "C"
     CAMLprim value ocaml_st_set_pitch(value st, value pitch);
     CAMLprim value ocaml_st_flush(value st);
     CAMLprim value ocaml_st_clear(value st);
+    CAMLprim value ocaml_st_putsamples_ba(value _st, value _chans, value samples);
     CAMLprim value ocaml_st_putsamples_ni(value _st, value samples, value _ofs, value _len);
     CAMLprim value ocaml_st_num_samples(value st);
+    CAMLprim value ocaml_st_receive_samples_ba(value _st, value samples);
     CAMLprim value ocaml_st_receive_samples_ni(value st, value samples, value _ofs, value _len);
 
     CAMLprim value ocaml_st_bpm_make(value chans, value rate);
+    CAMLprim value ocaml_st_bpm_putsamples_ba(value _bpm, value _chans, value samples);
     CAMLprim value ocaml_st_bpm_putsamples_ni(value _bpm, value samples, value _ofs, value _len);
     CAMLprim value ocaml_st_bpm_get_bpm(value bpm);
 }
