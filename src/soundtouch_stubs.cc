@@ -35,6 +35,7 @@
 extern "C"
 {
 #include <caml/alloc.h>
+#include <caml/bigarray.h>
 #include <caml/callback.h>
 #include <caml/custom.h>
 #include <caml/fail.h>
@@ -164,6 +165,21 @@ CAMLprim value ocaml_st_clear(value st)
     return Val_unit;
 }
 
+CAMLprim value ocaml_st_putsamples_ba(value _st, value _chans, value samples)
+{
+    CAMLparam3(_st, _chans, samples);
+    SoundTouch *st = ST_val(_st);
+    int chans = st->numChannels();
+    int len = Caml_ba_array_val(samples)->dim[0] / chans;
+    float *buf = (float*)Caml_ba_data_val(samples);
+
+    caml_enter_blocking_section();
+    st->putSamples(buf,len);
+    caml_leave_blocking_section();
+
+    CAMLreturn(Val_unit);
+}
+
 CAMLprim value ocaml_st_putsamples_ni(value _st, value samples, value _ofs, value _len)
 {
     CAMLparam2(_st, samples);
@@ -195,6 +211,22 @@ CAMLprim value ocaml_st_putsamples_ni(value _st, value samples, value _ofs, valu
 CAMLprim value ocaml_st_num_samples(value st)
 {
     return Val_int(ST_val(st)->numSamples());
+}
+
+CAMLprim value ocaml_st_receive_samples_ba(value _st, value samples)
+{
+  CAMLparam2(_st, samples);
+  SoundTouch *st = ST_val(_st);
+  int chans = st->numChannels();
+  int len = Caml_ba_array_val(samples)->dim[0] / chans;
+  float *buf = (float*)Caml_ba_data_val(samples);
+  int ret;
+
+  caml_enter_blocking_section();
+  ret = ST_val(st)->receiveSamples(buf, len);
+  caml_leave_blocking_section();
+
+  CAMLreturn(Val_int(ret));
 }
 
 CAMLprim value ocaml_st_receive_samples_ni(value st, value samples, value _ofs, value _len)
@@ -254,6 +286,21 @@ CAMLprim value ocaml_st_bpm_make(value chans, value rate)
     BPM_val(ans) = bpm;
 
     CAMLreturn(ans);
+}
+
+CAMLprim value ocaml_st_bpm_putsamples_ba(value _bpm, value _chans, value samples)
+{
+  CAMLparam3(_bpm, _chans, samples);
+  BPMDetect *bpm = BPM_val(_bpm);
+  int chans = Int_val(_chans);
+  int len = Caml_ba_array_val(samples)->dim[0] / chans;
+  float *buf = (float*)Caml_ba_data_val(samples);
+    
+  caml_enter_blocking_section();
+  bpm->inputSamples(buf,len);
+  caml_leave_blocking_section();
+
+  CAMLreturn(Val_unit);
 }
 
 CAMLprim value ocaml_st_bpm_putsamples_ni(value _bpm, value samples, value _ofs, value _len)

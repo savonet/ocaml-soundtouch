@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "soundtouch"
-version: "0.1.8"
+version: "0.1.9"
 maintainer: "Romain Beauxis <toots@rastageeks.org>"
 authors: "The Savonet Team <savonet-users@lists.sourceforge.net>"
 homepage: "https://github.com/savonet/ocaml-soundtouch"

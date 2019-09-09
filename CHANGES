@@ -1,3 +1,7 @@
+0.1.9 (unreleased)
+=====
+* Add `put_samples_ba` and `get_samples_ba`.
+
 0.1.8 (03-08-2015)
 =====
 * Dummy github release.
