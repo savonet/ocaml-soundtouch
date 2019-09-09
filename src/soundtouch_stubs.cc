@@ -63,7 +63,7 @@ extern "C"
     CAMLprim value ocaml_st_set_pitch(value st, value pitch);
     CAMLprim value ocaml_st_flush(value st);
     CAMLprim value ocaml_st_clear(value st);
-    CAMLprim value ocaml_st_putsamples_ba(value _st, value _chans, value samples);
+    CAMLprim value ocaml_st_putsamples_ba(value _st, value samples);
     CAMLprim value ocaml_st_putsamples_ni(value _st, value samples, value _ofs, value _len);
     CAMLprim value ocaml_st_num_samples(value st);
     CAMLprim value ocaml_st_receive_samples_ba(value _st, value samples);
@@ -168,9 +168,9 @@ CAMLprim value ocaml_st_clear(value st)
     return Val_unit;
 }
 
-CAMLprim value ocaml_st_putsamples_ba(value _st, value _chans, value samples)
+CAMLprim value ocaml_st_putsamples_ba(value _st, value samples)
 {
-    CAMLparam3(_st, _chans, samples);
+    CAMLparam2(_st, samples);
     SoundTouch *st = ST_val(_st);
     int chans = st->numChannels();
     int len = Caml_ba_array_val(samples)->dim[0] / chans;
