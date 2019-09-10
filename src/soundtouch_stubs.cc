@@ -224,7 +224,7 @@ CAMLprim value ocaml_st_receive_samples_ba(value _st, value samples)
 {
   CAMLparam2(_st, samples);
   SoundTouch *st = ST_val(_st);
-  int chans = st->numChannels();
+  int chans = st->channels;
   int len = Caml_ba_array_val(samples)->dim[0] / chans;
   float *buf = (float*)Caml_ba_data_val(samples);
   int ret;
