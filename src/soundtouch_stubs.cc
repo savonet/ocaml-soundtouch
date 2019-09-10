@@ -47,8 +47,12 @@ extern "C"
 #include <string.h>
 #include <assert.h>
 
+// Hack in order to have access to channels... (numChannels was only recently
+// introduced)
+#define protected public
 #include <soundtouch/SoundTouch.h>
 #include <soundtouch/BPMDetect.h>
+#undef protected
 
 /* Declaring the functions which should be accessible on the C side. */
 extern "C"
@@ -70,7 +74,7 @@ extern "C"
     CAMLprim value ocaml_st_receive_samples_ni(value st, value samples, value _ofs, value _len);
 
     CAMLprim value ocaml_st_bpm_make(value chans, value rate);
-    CAMLprim value ocaml_st_bpm_putsamples_ba(value _bpm, value _chans, value samples);
+    CAMLprim value ocaml_st_bpm_putsamples_ba(value _bpm, value samples);
     CAMLprim value ocaml_st_bpm_putsamples_ni(value _bpm, value samples, value _ofs, value _len);
     CAMLprim value ocaml_st_bpm_get_bpm(value bpm);
 }
@@ -88,7 +92,7 @@ static void finalize_st(value s)
 
 static struct custom_operations stream_ops =
 {
-  "ocaml_st",
+  (char*)"ocaml_st",
   finalize_st,
   custom_compare_default,
   custom_hash_default,
@@ -172,7 +176,7 @@ CAMLprim value ocaml_st_putsamples_ba(value _st, value samples)
 {
     CAMLparam2(_st, samples);
     SoundTouch *st = ST_val(_st);
-    int chans = st->numChannels();
+    int chans = st->channels;
     int len = Caml_ba_array_val(samples)->dim[0] / chans;
     float *buf = (float*)Caml_ba_data_val(samples);
 
@@ -270,7 +274,7 @@ static void finalize_bpm(value b)
 
 static struct custom_operations bpm_ops =
 {
-  "ocaml_bpm",
+  (char*)"ocaml_bpm",
   finalize_bpm,
   custom_compare_default,
   custom_hash_default,
@@ -291,11 +295,11 @@ CAMLprim value ocaml_st_bpm_make(value chans, value rate)
     CAMLreturn(ans);
 }
 
-CAMLprim value ocaml_st_bpm_putsamples_ba(value _bpm, value _chans, value samples)
+CAMLprim value ocaml_st_bpm_putsamples_ba(value _bpm, value samples)
 {
-  CAMLparam3(_bpm, _chans, samples);
+  CAMLparam2(_bpm, samples);
   BPMDetect *bpm = BPM_val(_bpm);
-  int chans = Int_val(_chans);
+  int chans = bpm->channels;
   int len = Caml_ba_array_val(samples)->dim[0] / chans;
   float *buf = (float*)Caml_ba_data_val(samples);
     

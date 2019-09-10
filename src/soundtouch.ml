@@ -71,24 +71,13 @@ external get_samples_ni : t -> float array array -> int -> int -> int = "ocaml_s
 
 module BPM =
 struct
-  type bpm
+  type t
 
-  (* We have to keep channel number since it is protected... *)
-  type t = int * bpm
+  external make : int -> int -> t = "ocaml_st_bpm_make"
 
-  external make : int -> int -> bpm = "ocaml_st_bpm_make"
-  let make chans samplerate : t = chans, make chans samplerate
+  external put_samples_ba : t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> unit = "ocaml_st_bpm_putsamples_ba"
 
-  let chans (t:t) = fst t
+  external put_samples_ni : t -> float array array -> int -> int -> unit = "ocaml_st_bpm_putsamples_ni"
 
-  let bpm (t:t) = snd t
-
-  external put_samples_ba : bpm -> int -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> unit = "ocaml_st_bpm_putsamples_ba"
-  let put_samples_ba t buf = put_samples_ba (bpm t) (chans t) buf
-
-  external put_samples_ni : bpm -> float array array -> int -> int -> unit = "ocaml_st_bpm_putsamples_ni"
-  let put_samples_ni t = put_samples_ni (bpm t)
-
-  external get_bpm : bpm -> float = "ocaml_st_bpm_get_bpm"
-  let get_bpm t = get_bpm (bpm t)
+  external get_bpm : t -> float = "ocaml_st_bpm_get_bpm"
 end
