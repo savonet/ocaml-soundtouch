@@ -23,8 +23,7 @@ depexts: [
   ["soundtouch-devel"] {os-distribution = "fedora"}
   ["soundtouch-devel"] {os-family = "suse"}
   ["libsoundtouch-dev"] {os-family = "debian"}
-  ["drfill/homebrew-liquidsoap/soundtouch"]
-    {os = "macos" & os-distribution = "homebrew"}
+  ["sound-touch"] {os = "macos" & os-distribution = "homebrew"}
 ]
 bug-reports: "https://github.com/savonet/ocaml-soundtouch/issues"
 dev-repo: "git+https://github.com/savonet/ocaml-soundtouch.git"
