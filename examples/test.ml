@@ -8,9 +8,9 @@ let () =
   S.set_rate s 1.2;
   let buflen = 10000 in
   let buf = Bigarray.Array1.create Bigarray.float32 Bigarray.c_layout (chans*buflen) in
-  for i = 0 to 10 do
+  for _ = 0 to 10 do
     S.put_samples_ba s buf
   done;
-  for i = 0 to 10 do
+  for _ = 0 to 10 do
     ignore (S.get_samples_ba s buf)
   done
