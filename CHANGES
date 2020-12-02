@@ -1,6 +1,7 @@
-0.1.9 (unreleased)
+0.1.9 (02-12-2020)
 =====
 * Add `put_samples_ba` and `get_samples_ba`.
+* Switch to dune.
 
 0.1.8 (03-08-2015)
 =====
