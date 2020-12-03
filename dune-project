@@ -13,7 +13,7 @@
  (synopsis "Bindings for the soundtouch library which provides functions for changing pitch and timestretching audio data")
  (depends
   ocaml
-  (dune (> 2.0))
+  (dune (>= 2.0))
   dune-configurator
   conf-soundtouch
   conf-pkg-config)
