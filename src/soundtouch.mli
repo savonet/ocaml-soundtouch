@@ -72,7 +72,10 @@ val set_pitch : t -> float -> unit
 (** {2 Sound manipulation} *)
 
 (** Put samples. Data is interleaved with given number of channels. *)
-val put_samples_ba : t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> unit
+val put_samples_ba :
+  t ->
+  (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t ->
+  unit
 
 (** Put samples (in a non-interleaved format) with given offset in array and
     number of samples. *)
@@ -82,7 +85,8 @@ val put_samples_ni : t -> float array array -> int -> int -> unit
 val get_available_samples : t -> int
 
 (** Retreive samples. *)
-val get_samples_ba : t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> int
+val get_samples_ba :
+  t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> int
 
 (** Retreive samples (in a non-interleaved format). *)
 val get_samples_ni : t -> float array array -> int -> int -> int
@@ -103,7 +107,10 @@ module BPM : sig
   val make : int -> int -> t
 
   (** Put samples in the detector. *)
-  val put_samples_ba : t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> unit
+  val put_samples_ba :
+    t ->
+    (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t ->
+    unit
 
   (** Put samples in the detector. *)
   val put_samples_ni : t -> float array array -> int -> int -> unit

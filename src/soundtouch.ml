@@ -34,50 +34,52 @@
 type t
 
 external create : unit -> t = "ocaml_st_make"
-
 external set_channels : t -> int -> unit = "ocaml_st_set_channels"
-
 external set_samplerate : t -> int -> unit = "ocaml_st_set_samplerate"
 
 let make chans rate =
   let st = create () in
-    set_channels st chans;
-    set_samplerate st rate;
-    st
+  set_channels st chans;
+  set_samplerate st rate;
+  st
 
 external get_version_string : t -> string = "ocaml_st_get_version_string"
-
 external get_version_id : t -> int = "ocaml_st_get_version_id"
-
 external set_rate : t -> float -> unit = "ocaml_st_set_rate"
-
 external set_tempo : t -> float -> unit = "ocaml_st_set_tempo"
-
 external set_pitch : t -> float -> unit = "ocaml_st_set_pitch"
-
 external flush : t -> unit = "ocaml_st_flush"
-
 external clear : t -> unit = "ocaml_st_clear"
 
-external put_samples_ba : t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> unit = "ocaml_st_putsamples_ba"
+external put_samples_ba :
+  t ->
+  (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t ->
+  unit = "ocaml_st_putsamples_ba"
 
-external put_samples_ni : t -> float array array -> int -> int -> unit = "ocaml_st_putsamples_ni"
+external put_samples_ni : t -> float array array -> int -> int -> unit
+  = "ocaml_st_putsamples_ni"
 
 external get_available_samples : t -> int = "ocaml_st_num_samples"
 
-external get_samples_ba : t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> int = "ocaml_st_receive_samples_ba"
+external get_samples_ba :
+  t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> int
+  = "ocaml_st_receive_samples_ba"
 
-external get_samples_ni : t -> float array array -> int -> int -> int = "ocaml_st_receive_samples_ni"
+external get_samples_ni : t -> float array array -> int -> int -> int
+  = "ocaml_st_receive_samples_ni"
 
-module BPM =
-struct
+module BPM = struct
   type t
 
   external make : int -> int -> t = "ocaml_st_bpm_make"
 
-  external put_samples_ba : t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> unit = "ocaml_st_bpm_putsamples_ba"
+  external put_samples_ba :
+    t ->
+    (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t ->
+    unit = "ocaml_st_bpm_putsamples_ba"
 
-  external put_samples_ni : t -> float array array -> int -> int -> unit = "ocaml_st_bpm_putsamples_ni"
+  external put_samples_ni : t -> float array array -> int -> int -> unit
+    = "ocaml_st_bpm_putsamples_ni"
 
   external get_bpm : t -> float = "ocaml_st_bpm_get_bpm"
 end
