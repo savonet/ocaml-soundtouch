@@ -21,5 +21,5 @@ let () =
                 | None -> default
                 | Some deps -> deps )
       in
-      C.Flags.write_sexp "c_flags.sexp" conf.cflags;
+      C.Flags.write_sexp "c_flags.sexp" ("-fPIC" :: conf.cflags);
       C.Flags.write_sexp "c_library_flags.sexp" ("-lstdc++" :: conf.libs))
