@@ -2,7 +2,7 @@ module C = Configurator.V1
 
 exception Found of C.Pkg_config.package_conf
 
-let pkg_config_names = ["soundtouch"; "libSoundTouch"]
+let pkg_config_names = ["soundtouch"; "libSoundTouch"; "soundtouch-1.4"]
 
 let () =
   C.main ~name:"soundtouch-pkg-config" (fun c ->
