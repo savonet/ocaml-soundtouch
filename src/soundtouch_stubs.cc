@@ -38,8 +38,8 @@
 // Hack in order to have access to channels... (numChannels was only recently
 // introduced)
 #define protected public
-#include <soundtouch/BPMDetect.h>
-#include <soundtouch/SoundTouch.h>
+#include <BPMDetect.h>
+#include <SoundTouch.h>
 #undef protected
 
 using namespace soundtouch;
