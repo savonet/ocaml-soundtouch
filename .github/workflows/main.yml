@@ -1,17 +1,31 @@
 name: Build
 on: [push]
 jobs:
+  cancel_previous_run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Cancel Previous Runs
+        uses: styfle/cancel-workflow-action@0.8.0
+        with:
+          access_token: ${{ github.token }}
+
   build:
     runs-on: ${{ matrix.operating-system }}
     strategy:
       matrix:
         operating-system: [ubuntu-latest, macos-latest]
-        ocaml-version: ['4.09.0']
     steps:
-    - uses: actions/checkout@v1
-    - uses: avsm/setup-ocaml@master
-      with:
-        ocaml-version: ${{ matrix.ocaml-version }}
-    - run: opam pin add -n .
-    - run: opam depext -yt soundtouch
-    - run: opam install -t .
+    - name: Checkout code
+      uses: actions/checkout@v1
+    - name: Install OCaml
+      uses: ocaml/setup-ocaml@v2
+    - name: Update packages
+      run: |
+        sudo apt-get update
+      if: matrix.operating-system != 'macos-latest'
+    - name: Pin locally
+      run: opam pin -y add --no-action .
+    - name: Install locally (ubuntu)
+      run: opam install -y soundtouch
+    - name: Run tests locally
+      run: opam exec dune runtest

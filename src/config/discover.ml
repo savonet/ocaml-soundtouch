@@ -21,7 +21,24 @@ let () =
                       | None -> ())
                   pkg_config_names;
                 default
-              with Found deps -> deps )
+              with Found deps -> deps)
       in
+
       C.Flags.write_sexp "c_flags.sexp" ("-fPIC" :: conf.cflags);
-      C.Flags.write_sexp "c_library_flags.sexp" ("-lstdc++" :: conf.libs))
+      C.Flags.write_sexp "c_library_flags.sexp" ("-lstdc++" :: conf.libs);
+
+      let has_top_level_header =
+        C.c_test c
+          ~c_flags:("-x" :: "c++" :: conf.cflags)
+          ~link_flags:conf.libs
+          {|
+        #include <SoundTouch.h>
+
+        int main() {
+          return 0;
+        }
+      |}
+      in
+
+      C.C_define.gen_header_file c ~fname:"config.h"
+        [("HAS_TOP_LEVEL_HEADER", Switch has_top_level_header)])

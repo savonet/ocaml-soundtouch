@@ -4,6 +4,7 @@
  (synopsis "OCaml bindings for soundtouch")
  (libraries unix)
  (foreign_stubs
+  (extra_deps config.h)
   (language cxx)
   (names soundtouch_stubs)
   (flags
@@ -12,6 +13,6 @@
   (:include c_library_flags.sexp)))
 
 (rule
- (targets c_flags.sexp c_library_flags.sexp)
+ (targets config.h c_flags.sexp c_library_flags.sexp)
  (action
   (run ./config/discover.exe)))
