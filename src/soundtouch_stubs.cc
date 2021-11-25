@@ -32,21 +32,14 @@
  *
  */
 
-#include "config.h"
-
 #include <assert.h>
 #include <string.h>
 
 // Hack in order to have access to channels... (numChannels was only recently
 // introduced)
 #define protected public
-#ifdef HAS_TOP_LEVEL_HEADER
 #include <BPMDetect.h>
 #include <SoundTouch.h>
-#else
-#include <soundtouch/BPMDetect.h>
-#include <soundtouch/SoundTouch.h>
-#endif
 #undef protected
 
 using namespace soundtouch;
