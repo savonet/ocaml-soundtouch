@@ -84,11 +84,11 @@ val put_samples_ni : t -> float array array -> int -> int -> unit
 (** Number of available output samples. *)
 val get_available_samples : t -> int
 
-(** Retreive samples. *)
+(** Retrieve samples. *)
 val get_samples_ba :
   t -> (float, Bigarray.float32_elt, Bigarray.c_layout) Bigarray.Array1.t -> int
 
-(** Retreive samples (in a non-interleaved format). *)
+(** Retrieve samples (in a non-interleaved format). *)
 val get_samples_ni : t -> float array array -> int -> int -> int
 
 (** Flush the last samples from the processing pipeline to the output. *)
@@ -102,8 +102,8 @@ module BPM : sig
   (** A beat detector. *)
   type t
 
-  (** Create a new beat detector with given number of channels and
-      samplerate. *)
+  (** Create a new beat detector with given number of channels and samplerate.
+  *)
   val make : int -> int -> t
 
   (** Put samples in the detector. *)

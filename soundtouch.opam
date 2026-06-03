@@ -9,14 +9,14 @@ license: "LGPL-2.1"
 homepage: "https://github.com/savonet/ocaml-soundtouch"
 bug-reports: "https://github.com/savonet/ocaml-soundtouch/issues"
 depends: [
-  "ocaml"
-  "dune" {>= "2.0"}
-  "dune-configurator"
   "conf-soundtouch"
   "conf-pkg-config"
+  "dune" {>= "3.23"}
+  "dune-configurator"
+  "odoc" {with-doc}
 ]
 build: [
-  ["dune" "subst"] {pinned}
+  ["dune" "subst"] {dev}
   [
     "dune"
     "build"
@@ -30,3 +30,4 @@ build: [
   ]
 ]
 dev-repo: "git+https://github.com/savonet/ocaml-soundtouch.git"
+x-maintenance-intent: ["(latest)"]

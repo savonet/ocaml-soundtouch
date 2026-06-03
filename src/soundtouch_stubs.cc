@@ -47,7 +47,7 @@ using namespace soundtouch;
 /* Declaring the functions which should be accessible on the C side. */
 extern "C" {
 /* flush definition in <caml/compatibility.h> messes with the call to flush()
-   below. Disabling the includ here. */
+   below. Disabling the include here. */
 #define CAML_COMPATIBILITY_H
 
 #include <caml/alloc.h>

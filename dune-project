@@ -1,4 +1,4 @@
-(lang dune 2.0)
+(lang dune 3.23)
 (version 0.1.9)
 (name soundtouch)
 (source (github savonet/ocaml-soundtouch))
@@ -7,14 +7,15 @@
 (maintainers "The Savonet Team <savonet-users@lists.sourceforge.net>")
 
 (generate_opam_files true)
+(use_standard_c_and_cxx_flags false)
 
 (package
  (name soundtouch)
  (synopsis "Bindings for the soundtouch library which provides functions for changing pitch and timestretching audio data")
+ (allow_empty)
  (depends
-  ocaml
-  (dune (>= 2.0))
-  dune-configurator
   conf-soundtouch
-  conf-pkg-config)
+  conf-pkg-config
+  dune
+  dune-configurator)
 )
